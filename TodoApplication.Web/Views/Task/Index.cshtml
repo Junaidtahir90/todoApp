@@ -1,0 +1,92 @@
+﻿@model IEnumerable<TodoApplication.Web.TaskDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .space{
+        white-space: nowrap;
+    }
+    table, th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+table {
+  border-spacing: 15px;
+}
+     
+</style>
+<p>
+    <a asp-action="Create"> <i class="fa fa-plus"></i> Create New Task</a>
+</p>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @*<label value="Status" class="control-label"></label>*@
+                @Html.DisplayNameFor(model => model.StatusId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </th>*@
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="space">
+                @if (@item.StatusId == 1)
+                {
+                    <p> Todo</p>
+                }
+                else if (@item.StatusId == 2)
+                {
+                    <p> In-Progress</p>
+                }
+                else
+                {
+                    <p>Completed</p>
+                }
+                @*<div>
+                <select class="form-control" id="StatusId" asp-for="StatusId" name="StatusId">
+                    <option value="1">Todo</option>
+                    <option value="2">In-Progress</option>
+                    <option value="3">Completed</option>
+                </select>
+
+            </div>*@
+            </td>
+            <td>
+                @*@Html.DisplayFor(Model => item.CreatedDate,
+    new {  Model => item.CreatedDate.Value.ToString("yyyy/MM/dd"), @class = "datepicker" })@*@
+                @*@Html.DisplayFor(Model => item.CreatedDate.Value)*@
+                @Html.DisplayFor(modelItem => item.CreatedDate.Value, "{dd/MM/yyyy}")
+            </td>
+            @*s<td>
+            @Html.DisplayFor(modelItem => item.UpdatedDate.Value)
+        </td>*@
+<td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-eye"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash" style="color:red;"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

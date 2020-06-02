@@ -1,0 +1,53 @@
+﻿@model TodoApplication.Web.TaskDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add New Todo</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                @*<input asp-for="Description" class="form-control" />*@
+                <textarea class="form-control"
+                          cols="40"
+                          id="Description"
+                          name="Description"
+                          rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+          
+        <div>
+            <label value="Choose your Status" class="control-label"></label>
+            <select class="form-control" id="StatusId" name="StatusId">
+                <option id="StatusId" value="1" selected="selected">Todo</option>
+                <option id="StatusId" value="2">In-Progress</option>
+                <option id="StatusId" value="3">Completed</option>
+            </select>
+            <span asp-validation-for="StatusId" class="text-danger"></span>
+        </div>
+          <br>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
